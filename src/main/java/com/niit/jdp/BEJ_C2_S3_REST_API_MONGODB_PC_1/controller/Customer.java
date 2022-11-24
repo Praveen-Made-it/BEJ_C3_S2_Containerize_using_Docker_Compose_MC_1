@@ -16,5 +16,15 @@ public class Customer {
     private int customerId;
     private String customerName;
     private String customerPhoneNo;
+    private Product customerProduct;
 
+    public Customer() {
+    }
+
+    public Customer(int customerId, String customerName, String customerPhoneNo, Product customerProduct) {
+        this.customerId = customerId;
+        this.customerName = customerName;
+        this.customerPhoneNo = customerPhoneNo;
+        this.customerProduct = customerProduct;
+    }
 }
