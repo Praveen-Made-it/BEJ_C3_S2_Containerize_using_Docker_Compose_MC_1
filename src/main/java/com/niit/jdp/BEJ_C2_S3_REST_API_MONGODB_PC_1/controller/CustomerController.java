@@ -33,7 +33,7 @@ public class CustomerController {
     public ResponseEntity<?> fetchAllCustomer() {
         ResponseEntity responseEntity = null;
         try {
-            responseEntity = new ResponseEntity<>(customerService.getAllCustomerData(), HttpStatus.OK);
+            responseEntity = new ResponseEntity<>(customerService.getAllCustomers(), HttpStatus.OK);
         } catch (Exception e) {
             responseEntity = new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -58,7 +58,7 @@ public class CustomerController {
     public ResponseEntity<?> fetchByCustomerProductName(@PathVariable String productName) {
         ResponseEntity responseEntity = null;
         try {
-            responseEntity = new ResponseEntity<>(customerService.getAllCustomerByProductName(productName), HttpStatus.FOUND);
+            responseEntity = new ResponseEntity<>(customerService.getAllCustomersByProductName(productName), HttpStatus.FOUND);
         } catch (Exception e) {
             responseEntity = new ResponseEntity(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }

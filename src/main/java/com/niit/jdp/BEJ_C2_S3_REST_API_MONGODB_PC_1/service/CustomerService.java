@@ -9,9 +9,9 @@ public interface CustomerService {
 
     Customer saveCustomer(Customer customer);
 
-    List<Customer> getAllCustomerData() throws Exception;
+    List<Customer> getAllCustomers() throws Exception;
 
-    boolean deleteCustomer(int customerId) throws ClassNotFoundException;
+    boolean deleteCustomer(int customerId) throws ClassNotFoundException, CustomerNotFoundException;
 
-    List<Customer> getAllCustomerByProductName(String productName) throws CustomerNotFoundException;
+    List<Customer> getAllCustomersByProductName(String productName) throws CustomerNotFoundException;
 }
