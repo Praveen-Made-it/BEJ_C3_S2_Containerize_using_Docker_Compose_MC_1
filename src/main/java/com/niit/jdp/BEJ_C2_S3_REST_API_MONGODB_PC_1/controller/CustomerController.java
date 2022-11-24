@@ -9,6 +9,7 @@ package com.niit.jdp.BEJ_C2_S3_REST_API_MONGODB_PC_1.controller;
 
 import com.niit.jdp.BEJ_C2_S3_REST_API_MONGODB_PC_1.domain.Customer;
 import com.niit.jdp.BEJ_C2_S3_REST_API_MONGODB_PC_1.exception.CustomerNotFoundException;
+import com.niit.jdp.BEJ_C2_S3_REST_API_MONGODB_PC_1.exception.ProductNotFoundException;
 import com.niit.jdp.BEJ_C2_S3_REST_API_MONGODB_PC_1.service.CustomerService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,44 +24,45 @@ public class CustomerController {
         this.customerService = customerService;
     }
 
-    @PostMapping("/customer")
-    public ResponseEntity<?> insertCustomer(@RequestBody Customer customer) {
-        Customer customerPost = customerService.saveCustomer(customer);
-        return new ResponseEntity<>(customerPost, HttpStatus.CREATED);
+    @PostMapping(value = "/customer")
+    public ResponseEntity<?> saveCustomer(@RequestBody Customer customer) {
+        return new ResponseEntity<>(customerService.saveCustomer(customer), HttpStatus.CREATED);
     }
 
-    @GetMapping("customer")
-    public ResponseEntity<?> fetchAllCustomer() {
+    @GetMapping(value = "/customers")
+    public ResponseEntity<?> getAllCustomers() {
         ResponseEntity responseEntity = null;
         try {
             responseEntity = new ResponseEntity<>(customerService.getAllCustomers(), HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return responseEntity;
+    }
+
+    @DeleteMapping(value = "/customer/{customerId}")
+    public ResponseEntity<?> deleteCustomer(@PathVariable int customerId) throws CustomerNotFoundException {
+        ResponseEntity responseEntity = null;
+        try {
+            customerService.deleteCustomer(customerId);
+            responseEntity = new ResponseEntity<>("successfully deleted one record", HttpStatus.OK);
+        } catch (CustomerNotFoundException e) {
+            throw new CustomerNotFoundException();
         } catch (Exception e) {
             responseEntity = new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return responseEntity;
     }
 
-    @DeleteMapping("customer/{customerId}")
-    public ResponseEntity<?> deleteSingleCustomer(@PathVariable("customerId") int customerId) throws CustomerNotFoundException {
+    @GetMapping(value = "/customer/{productName}")
+    public ResponseEntity<?> getAllCustomersByProductName(@PathVariable String productName) throws ProductNotFoundException {
         ResponseEntity responseEntity = null;
         try {
-            customerService.deleteCustomer(customerId);
-            responseEntity = new ResponseEntity("Successfully deleted the 1 record", HttpStatus.OK);
-        } catch (ClassNotFoundException cnfe) {
-            throw new CustomerNotFoundException();
-        } catch (Exception exception) {
-            responseEntity = new ResponseEntity<>(exception.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-        return responseEntity;
-    }
+            responseEntity = new ResponseEntity(customerService.getAllCustomersByProductName(productName), HttpStatus.OK);
 
-    @GetMapping("customers/{productName}")
-    public ResponseEntity<?> fetchByCustomerProductName(@PathVariable String productName) {
-        ResponseEntity responseEntity = null;
-        try {
-            responseEntity = new ResponseEntity<>(customerService.getAllCustomersByProductName(productName), HttpStatus.FOUND);
-        } catch (Exception e) {
-            responseEntity = new ResponseEntity(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (CustomerNotFoundException e) {
+
+            throw new ProductNotFoundException();
         }
         return responseEntity;
     }
