@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -20,7 +22,6 @@ class CustomerRepositoryTest {
     private CustomerRepository customerRepository;
     private Product product;
     private Customer customer;
-
     @BeforeEach
     void setUp() {
         product = new Product(1, "Apple", "Laptop");
@@ -41,6 +42,15 @@ class CustomerRepositoryTest {
         Customer customer1 = customerRepository.findById(customer.getCustomerId()).get();
         assertNotNull(customer1);
         assertEquals(customer.getCustomerId(), customer1.getCustomerId());
+    }
+
+    @Test
+    //Test case for deleting customer object by customer Id.
+    public void ToDeleteCustomerById() {
+        customerRepository.insert(customer);
+        Customer customer1 = customerRepository.findById(customer.getCustomerId()).get();
+        customerRepository.delete(customer1);
+        assertEquals(Optional.empty(), customerRepository.findById(customer.getCustomerId()));
     }
 
 
