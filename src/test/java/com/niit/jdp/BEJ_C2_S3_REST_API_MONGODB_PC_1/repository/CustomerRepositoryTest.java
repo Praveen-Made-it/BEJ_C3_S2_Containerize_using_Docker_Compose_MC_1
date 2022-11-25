@@ -77,5 +77,4 @@ class CustomerRepositoryTest {
         assertEquals(customer.getCustomerProduct().getProductName(), customers.get(0).getCustomerProduct().getProductName());
     }
 
-
 }
