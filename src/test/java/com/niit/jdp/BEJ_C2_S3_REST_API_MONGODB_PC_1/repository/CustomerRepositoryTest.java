@@ -32,7 +32,7 @@ class CustomerRepositoryTest {
     void tearDown() {
         product = null;
         customer = null;
-
+        customerRepository.deleteAll();
     }
 
     @Test
@@ -66,11 +66,11 @@ class CustomerRepositoryTest {
     }
 
     @Test
-    //Test Case for retrieving all the customers by product Name for failure.
+    //Test Case for retrieving all the customers by product Name.
     public void toGetCustomerByProductNameFail() {
         customerRepository.insert(customer);
-        product = new Product(100, "Apple", "Mobile");
-        customer = new Customer(100, "kumar", "9093333610", product);
+        product = new Product(2, "Vivo", "Mobile");
+        customer = new Customer(2, "kumar", "9093333610", product);
         customerRepository.insert(customer);
         List<Customer> customers = customerRepository.findAllCustomersFromProductName(customer.getCustomerProduct().getProductName());
         assertNotEquals(12, customers.size());
