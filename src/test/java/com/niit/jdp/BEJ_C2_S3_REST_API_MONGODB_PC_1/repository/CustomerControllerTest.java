@@ -91,7 +91,7 @@ public class CustomerControllerTest {
     @Test
     public void deleteCustomerSuccess() throws Exception {
         when(customerService.deleteCustomer(anyInt())).thenReturn(true);
-        mockMvc.perform(delete("/customerdata/api/customer/41")
+        mockMvc.perform(delete("/customerdata/api/customer/101")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(jsonToString(customer)))
                 .andExpect(status().is2xxSuccessful())
