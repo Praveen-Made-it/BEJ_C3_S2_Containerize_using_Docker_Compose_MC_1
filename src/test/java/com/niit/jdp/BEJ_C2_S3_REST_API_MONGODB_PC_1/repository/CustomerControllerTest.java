@@ -11,6 +11,7 @@ import com.niit.jdp.BEJ_C2_S3_REST_API_MONGODB_PC_1.controller.CustomerControlle
 import com.niit.jdp.BEJ_C2_S3_REST_API_MONGODB_PC_1.domain.Customer;
 import com.niit.jdp.BEJ_C2_S3_REST_API_MONGODB_PC_1.domain.Product;
 import com.niit.jdp.BEJ_C2_S3_REST_API_MONGODB_PC_1.service.CustomerServiceImpl;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -42,5 +43,8 @@ public class CustomerControllerTest {
 
     }
 
-
+    @AfterEach
+    void tearDown() {
+        customer = null;
+    }
 }
