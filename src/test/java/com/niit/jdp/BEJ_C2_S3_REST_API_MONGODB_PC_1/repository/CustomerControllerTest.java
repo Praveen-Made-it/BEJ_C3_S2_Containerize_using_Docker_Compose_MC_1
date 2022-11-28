@@ -64,8 +64,8 @@ public class CustomerControllerTest {
 
     @BeforeEach
     void setUp() {
-        product = new Product(41, "Product41", "ProductDescription41");
-        customer = new Customer(41, "Arjun41", "9092222610", product);
+        product = new Product(1001, "Dairymilk", "chocolate");
+        customer = new Customer(101, "praveen", "9092222610", product);
         mockMvc = MockMvcBuilders.standaloneSetup(customerController).build();
 
     }
